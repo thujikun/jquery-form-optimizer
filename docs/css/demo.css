@@ -1,0 +1,124 @@
+html {
+  font-family: 'ヒラギノ角ゴ StdN', 'Hiragino Kaku Gothic StdN';
+}
+#layout {
+  padding-left: 150px;
+}
+#menu {
+  position: fixed;
+  top: 0;
+  left: 150px;
+  bottom: 0;
+  width: 150px;
+  margin-left: -150px;
+  overflow-y: auto;
+  z-index: 1000;
+  background: #191818;
+}
+#menu a {
+  padding: 0.6em 0 0.6em 0.6em;
+  color: #999;
+  border: none;
+}
+#menu .pure-menu-heading {
+  color: #fff;
+  font-size: 16px;
+}
+#menu .pure-menu ul {
+  border-top: 1px solid #333;
+}
+#menu .pure-menu li {
+  font-size: 14px;
+}
+#menu .pure-menu li.menu-item-selected {
+  background: #1f8dd6;
+}
+#menu .pure-menu li.menu-item-selected a {
+  color: #fff;
+}
+#menu .pure-menu li.menu-item-selected ahove {
+  background: none;
+}
+#menu .pure-menu li ahove {
+  background: #333;
+}
+#menu .pure-menu .menu-item-devided {
+  border-top: 1px solid #333;
+}
+#menu .pure-menu-open {
+  background: transparent;
+  border: none;
+}
+#main {
+  width: 100%;
+}
+#main h1 {
+  color: #4b4b4b;
+  text-align: center;
+  font-weight: 300;
+  font-size: 50px;
+}
+#main h2.tab-title {
+  margin-bottom: 20px;
+  font-size: 40px;
+  text-align: center;
+}
+#main h3.tab-subtitle {
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+#main .pure-table {
+  margin-bottom: 30px;
+}
+#main .demo-wrap {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #ccc;
+}
+#main .demo-wrap h2 {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+#main .demo-wrap h3 {
+  font-size: 30px;
+}
+#main .demo-wrap h4 {
+  font-size: 20px;
+  font-style: italic;
+}
+#main > .content {
+  margin: 0 auto;
+  width: 90%;
+  margin-bottom: 50px;
+  display: none;
+}
+#main > .content.content-item-selected {
+  display: block;
+}
+#main > .content.snippet {
+  padding: 1.3em;
+}
+#main .demo {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#main .smooth-scroll {
+  color: #333;
+  font-weight: bold;
+  text-decoration: underline;
+}
+#main .input-table .input-row > dt {
+  width: 180px;
+}
+#main .code {
+  margin-top: 20px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.pure-table tbody tr {
+  counter-increment: table-row;
+}
+.pure-table tbody tr td:first-child:before {
+  content: counter(table-row);
+}

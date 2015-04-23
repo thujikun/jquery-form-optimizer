@@ -1,0 +1,33 @@
+@charset 'utf-8';
+
+body { background: url(../img/bg.png); font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-weight: 300; color: #555; font-size: 100%; }
+
+.input-table .email-check {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  font-size: 32px;
+}
+.input-table .email-check.ok:after {
+  content: "✔";
+  color: #1ebaa5;
+}
+
+
+.button { background: #76d6dd; color: #fff; border: none; font-weight: normal; }
+.button.disabled { background: #ccc; border: 1px solid #aaa; }
+.button.cancel { background: #ccc; border: 1px solid #aaa; color: #777; }
+
+.input-table .input-row.required > dt::before {
+  content: "required";
+  font-size: 12px;
+  margin-right: 0;
+  color: #bbb; letter-spacing: 1px;
+  display: block;
+}
+.input-table .input-row.required > dt::after {
+  content: none;
+  font-size: 12px;
+  margin: 2px 0 0 10px;
+  color: #bbb; letter-spacing: 1px;
+}

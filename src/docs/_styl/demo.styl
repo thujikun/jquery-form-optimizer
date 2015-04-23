@@ -1,0 +1,128 @@
+html
+    font-family 'ヒラギノ角ゴ StdN','Hiragino Kaku Gothic StdN'
+
+#layout
+    padding-left 150px
+
+#menu
+    position fixed
+    top 0
+    left 150px
+    bottom 0
+    width 150px
+    margin-left -150px
+    overflow-y auto
+    z-index 1000
+    background #191818
+
+    a
+        padding 0.6em 0 0.6em 0.6em
+        color #999999
+        border none
+
+    .pure-menu-heading
+        color #ffffff
+        font-size 16px
+
+    .pure-menu
+        ul
+            border-top 1px solid #333333
+
+        li
+            font-size 14px
+
+            &.menu-item-selected
+                background #1f8dd6
+
+                a
+                    color #ffffff
+                    
+                    &hove
+                        background none
+
+            ahove
+                background #333333
+
+        .menu-item-devided
+            border-top 1px solid #333
+
+    .pure-menu-open
+        background transparent
+        border none
+
+#main
+    width 100%
+
+    h1
+        color rgb(75, 75, 75)
+        text-align center
+        font-weight 300
+        font-size 50px
+
+    h2.tab-title
+        margin-bottom 20px
+        font-size 40px
+        text-align center
+
+    h3.tab-subtitle
+        margin-bottom 10px
+        font-size 30px
+
+    .pure-table
+        margin-bottom 30px
+
+    .demo-wrap
+        margin-bottom 40px
+        border-bottom 1px solid #ccc
+
+        h2
+            font-size 40px
+            text-align center
+            margin-bottom 20px
+
+        h3
+            font-size 30px
+
+        h4
+            font-size 20px
+            font-style italic
+
+    > .content
+        margin 0 auto
+        width 90%
+        margin-bottom 50px
+        display none
+        
+        &.content-item-selected
+            display block
+
+        &.snippet
+            padding 1.3em
+
+    .demo
+        margin-top 20px
+        margin-bottom 20px
+
+    .smooth-scroll
+        color #333333
+        font-weight bold
+        text-decoration underline
+
+    .input-table
+        .input-row
+            > dt
+                width 180px
+
+    .code
+        margin-top 20px
+
+.mt-20
+    margin-top 20px
+
+.pure-table
+    tbody
+        tr
+            counter-increment table-row
+
+            td:first-child:before
+                content counter(table-row)

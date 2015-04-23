@@ -1,0 +1,18 @@
+doctype html
+<!--[if IE 7]>
+<html lang="ja" class="ie7 lt-ie10 le-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>
+<html lang="ja" class="ie8 lt-ie10 lt-ie9">
+<![endif]-->
+<!--[if IE 9]>
+<html lang="ja" class="ie9 lt-ie10">
+<![endif]-->
+html(lang=ja)
+  include default-partials/_html-header
+
+  body
+    include default-partials/_header
+    block content
+    include default-partials/_footer
+    block script

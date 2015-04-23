@@ -1,0 +1,32 @@
+{
+  "name": "jquery-form-optimizer",
+  "version": "1.0.0",
+  "description": "form optimizer jquery plugin",
+  "main": "dist/jquery-form-optimizer.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thujikun/form-optimizer.git"
+  },
+  "keywords": [
+    "form",
+    "validation",
+    "helper"
+  ],
+  "author": "thujikun",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-autoprefixer": "^3.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-jade": "^0.14.1",
+    "grunt-contrib-stylus": "^0.21.0",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-este-watch": "^0.1.18",
+    "grunt-jsdoc": "^0.5.8",
+    "grunt-sftp-deploy": "^0.2.4",
+    "load-grunt-tasks": "^3.1.0",
+    "time-grunt": "^1.1.1"
+  }
+}

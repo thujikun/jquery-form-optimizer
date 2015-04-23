@@ -1,0 +1,333 @@
+<!DOCTYPE html><!--[if IE 7]>
+<html lang="ja" class="ie7 lt-ie10 le-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>
+<html lang="ja" class="ie8 lt-ie10 lt-ie9">
+<![endif]-->
+<!--[if IE 9]>
+<html lang="ja" class="ie9 lt-ie10">
+<![endif]-->
+<html>
+  <head>
+    <title>Entry Form Optimization</title>
+    <meta charset="UTF-8">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <meta content="width=device-width" name="viewport">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/cosmetics.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="header">
+      <h1>Form Optimizer</h1>
+    </div>
+    <div class="main">
+      <form name="input-form" method="post" action="/" formnovalidate="formnovalidate" data-role="validation">
+        <div class="input-table">
+          <div class="section">
+            <dl class="input-row required">
+              <dt>Name</dt>
+              <dd>
+                <input type="text" name="name" placeholder="（例）Tarou" title="Name" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}">
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Surname</dt>
+              <dd>
+                <input type="text" name="surname" placeholder="（例）Yamada" title="Surname" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}">
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Country</dt>
+              <dd>
+                <select name="country" title="Country" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}" class="js-country">
+                  <option value="">Choose Country</option>
+                  <option value="jp">Japan</option>
+                  <option value="us">United states</option>
+                  <option value="uk">United kingdom</option>
+                </select>
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row postal-row required">
+              <dt>Postal Code</dt>
+              <dd>
+                <div class="normal">
+                  <input type="text" name="zip1" placeholder="132" title="Postal Code1" pattern="[0-9]*" maxlength="3" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:3,&quot;format&quot;:&quot;number&quot;}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autonext&quot;:3,&quot;restriction&quot;:&quot;number&quot;}" class="zip1 numeric">&nbsp;-&nbsp;
+                  <input type="text" name="zip2" placeholder="0034" title="Postal Code2" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:4,&quot;format&quot;:&quot;number&quot;}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autoprev&quot;:true,&quot;restriction&quot;:&quot;number&quot;}" class="zip2 numeric">
+                </div>
+              </dd>
+            </dl>
+            <dl class="input-row postal-row required">
+              <dt>Postal Code(UK)</dt>
+              <dd>
+                <div class="uk">
+                  <input type="text" name="zip" title="Postal Code" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;insert&quot;:&quot;zip&quot;,&quot;restriction&quot;:&quot;half&quot;}" class="zip long">
+                </div>
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Address(Prefecture)</dt>
+              <dd>
+                <input type="text" name="address-prefecture" placeholder="" title="Address(Prefecture)" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}" class="long">
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Address(District)</dt>
+              <dd>
+                <input type="text" name="address-district" placeholder="" title="Address(District)" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}" class="long">
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Address(Street)</dt>
+              <dd>
+                <input type="text" name="address-street" placeholder="" title="Address(Street)" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}" class="long">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row required">
+              <dt>Mobile Telephone</dt>
+              <dd>
+                <input type="tel" name="mobile-tel1" placeholder="090" title="Mobile Telephone1" pattern="[0-9]*" maxlength="3" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:3,&quot;format&quot;:&quot;number&quot;}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autonext&quot;:3}">&nbsp;-&nbsp;
+                <input type="tel" name="mobile-tel2" placeholder="1234" title="Mobile Telephone2" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:4,&quot;format&quot;:&quot;number&quot;}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autoprev&quot;:true,&quot;autonext&quot;:4}">&nbsp;-&nbsp;
+                <input type="tel" name="mobile-tel3" placeholder="5678" title="Mobile Telephone3" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:4,&quot;format&quot;:&quot;number&quot;}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autoprev&quot;:true}">
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Telephone</dt>
+              <dd>
+                <input type="text" name="tel" placeholder="09012345678" title="Telephone" pattern="[0-9\+]*" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;maxlength&quot;:20,&quot;format&quot;:&quot;tel-i18n&quot;}}" data-input-helper="{&quot;cancelspace&quot;:true}" class="normal">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row required">
+              <dt>Email</dt>
+              <dd>
+                <input type="email" name="email" placeholder="（例）tarou@mail.example.com" title="Email" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;format&quot;:&quot;email&quot;},&quot;relation&quot;:[{&quot;type&quot;:&quot;same&quot;,&quot;key&quot;:&quot;email&quot;,&quot;role&quot;:&quot;body&quot;}]}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;remove&quot;:&quot;[name=email-confirmation]&quot;}" class="long">
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Email(confirmation)</dt>
+              <dd>
+                <input type="email" name="email-confirmation" title="Email(confirmation)" disabled="disabled" data-validation="{&quot;relation&quot;:[{&quot;type&quot;:&quot;same&quot;,&quot;key&quot;:&quot;email&quot;,&quot;role&quot;:&quot;confirmation&quot;}]}" data-input-helper="{&quot;cancelspace&quot;:true}" class="long">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row required">
+              <dt>Credit Card Number</dt>
+              <dd>
+                <input type="text" name="credit" placeholder="4111111111111111" title="Credit Card Number" maxlength="19" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;format&quot;:&quot;credit&quot;,&quot;maxlength&quot;:19}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;credit&quot;:true,&quot;insert&quot;:&quot;credit&quot;,&quot;restriction&quot;:&quot;credit&quot;}" class="numeric semi-long">
+                <div class="card-image"><span class="credit-icon visa"></span><span class="credit-icon master"></span><span class="credit-icon jcb"></span></div>
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Expiry Date</dt>
+              <dd>
+                <select name="credit1-month" title="Month" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;credit&quot;:true,&quot;insert&quot;:&quot;credit&quot;,&quot;restriction&quot;:&quot;credit&quot;}">
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>&nbsp;/&nbsp;
+                <select name="credit1-year" title="Year" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}">
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                  <option value="32">32</option>
+                  <option value="33">33</option>
+                </select>
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Security Number</dt>
+              <dd>
+                <input type="password" name="credit1-sec-number" placeholder="096" title="Security Number" pattern="[0-9]*" maxlength="3" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:3,&quot;format&quot;:&quot;number&quot;}}" class="short">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row input-logo required">
+              <dt>Credit Card Number</dt>
+              <dd>
+                <input type="text" name="credit1" placeholder="4111" title="Credit Card Number1" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;format&quot;:&quot;number&quot;,&quot;length&quot;:4},&quot;relation&quot;:[{&quot;type&quot;:&quot;credit&quot;,&quot;key&quot;:&quot;credit&quot;}]}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autonext&quot;:4,&quot;credit&quot;:true}" class="credit-item js-credit-item numeric">&nbsp;
+                <input type="text" name="credit2" placeholder="1111" title="Credit Card Number2" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;format&quot;:&quot;number&quot;,&quot;length&quot;:4},&quot;relation&quot;:[{&quot;type&quot;:&quot;credit&quot;,&quot;key&quot;:&quot;credit&quot;}]}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autoprev&quot;:true,&quot;autonext&quot;:4}" class="credit-item js-credit-item numeric">&nbsp;
+                <input type="text" name="credit3" placeholder="1111" title="Credit Card Number3" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;format&quot;:&quot;number&quot;,&quot;length&quot;:4},&quot;relation&quot;:[{&quot;type&quot;:&quot;credit&quot;,&quot;key&quot;:&quot;credit&quot;}]}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autoprev&quot;:true,&quot;autonext&quot;:4}" class="credit-item js-credit-item numeric">&nbsp;
+                <input type="text" name="credit4" placeholder="1111" title="Credit Card Number4" pattern="[0-9]*" maxlength="4" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;format&quot;:&quot;number&quot;,&quot;length&quot;:4},&quot;relation&quot;:[{&quot;type&quot;:&quot;credit&quot;,&quot;key&quot;:&quot;credit&quot;}]}" data-input-helper="{&quot;cancelspace&quot;:true,&quot;autoprev&quot;:true}" class="credit-item js-credit-item numeric">
+                <div class="card-image"><span class="credit-icon visa"></span><span class="credit-icon master"></span><span class="credit-icon jcb"></span></div>
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Expiry Date</dt>
+              <dd>
+                <select name="credit2-month" title="Month" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}">
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>&nbsp;/&nbsp;
+                <select name="credit2-year" title="Year" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}">
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                  <option value="24">24</option>
+                  <option value="25">25</option>
+                  <option value="26">26</option>
+                  <option value="27">27</option>
+                  <option value="28">28</option>
+                  <option value="29">29</option>
+                  <option value="30">30</option>
+                  <option value="31">31</option>
+                  <option value="32">32</option>
+                  <option value="33">33</option>
+                </select>
+              </dd>
+            </dl>
+            <dl class="input-row required">
+              <dt>Security Number</dt>
+              <dd>
+                <input type="password" name="credit2-sec-number" placeholder="096" title="Security Number" pattern="[0-9]*" maxlength="3" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true,&quot;length&quot;:3,&quot;format&quot;:&quot;number&quot;}}" class="short">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row required">
+              <dt>Points</dt>
+              <dd>
+                <select name="points" title="Points" data-validation="{&quot;unit&quot;:{&quot;required&quot;:true}}">
+                  <option value="100">100</option>
+                  <option value="200">200</option>
+                  <option value="300">300</option>
+                  <option value="400">400</option>
+                  <option value="500">500</option>
+                  <option value="600">600</option>
+                  <option value="700">700</option>
+                  <option value="800">800</option>
+                  <option value="900">900</option>
+                  <option value="1000">1000</option>
+                </select>
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row">
+              <dt>Term</dt>
+              <dd>
+                <input type="text" name="date-around-before" placeholder="yyyy/mm/dd" title="Before Date" pattern="[0-9/]*" maxlength="10" data-validation="{&quot;unit&quot;:{&quot;format&quot;:&quot;date&quot;},&quot;relation&quot;:[{&quot;type&quot;:&quot;date-around&quot;,&quot;key&quot;:&quot;date&quot;,&quot;role&quot;:&quot;before&quot;}]}" class="numeric">&nbsp;~&nbsp;
+                <input type="text" name="date-around-after" placeholder="yyyy/mm/dd" title="After Date" pattern="[0-9/]*" maxlength="10" data-validation="{&quot;unit&quot;:{&quot;format&quot;:&quot;date&quot;},&quot;relation&quot;:[{&quot;type&quot;:&quot;date-around&quot;,&quot;key&quot;:&quot;date&quot;,&quot;role&quot;:&quot;after&quot;}]}" class="numeric">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row">
+              <dt>Convert all to half</dt>
+              <dd>
+                <input type="text" name="all2half" title="all to half">
+              </dd>
+            </dl>
+            <dl class="input-row">
+              <dt>Convert all kana to half kana</dt>
+              <dd>
+                <input type="text" name="allKana2halfKana" title="all kana to half kana">
+              </dd>
+            </dl>
+            <dl class="input-row">
+              <dt>Convert half to all</dt>
+              <dd>
+                <input type="text" name="half2all" title="half to all">
+              </dd>
+            </dl>
+            <dl class="input-row">
+              <dt>Convert half kana to all kana</dt>
+              <dd>
+                <input type="text" name="halfKana2AllKana" title="half kana to all kana">
+              </dd>
+            </dl>
+          </div>
+          <div class="section">
+            <dl class="input-row">
+              <dt>radio</dt>
+              <dd>
+                <label for="radio1" class="radio-button">
+                  <input type="radio" name="radio" title="radio" id="radio1" data-validation="{&quot;unit&quot;:{&quot;required-check&quot;:true}}" class="checked">
+                </label>
+                <label for="radio2" class="radio-button">
+                  <input type="radio" name="radio" title="radio" id="radio2">
+                </label>
+              </dd>
+            </dl>
+            <dl class="input-row">
+              <dt>checkbox</dt>
+              <dd>
+                <label for="checkbox1" class="checkbox-button">
+                  <input type="checkbox" name="checkbox" title="checkbox" id="checkbox1" data-validation="{&quot;unit&quot;:{&quot;required-check&quot;:true}}">
+                </label>
+                <label for="checkbox2" class="checkbox-button">
+                  <input type="checkbox" name="checkbox" title="checkbox" id="checkbox2">
+                </label>
+                <label for="checkbox3" class="checkbox-button">
+                  <input type="checkbox" name="checkbox" title="checkbox" id="checkbox3">
+                </label>
+                <label for="checkbox4" class="checkbox-button">
+                  <input type="checkbox" name="checkbox" title="checkbox" id="checkbox4">
+                </label>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <ul class="error-messages"></ul>
+        <div class="operation">
+          <input type="submit" value="Send" formnovalidate="formnovalidate" class="button"><a href="#" class="button cancel">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <!-- Footer-->
+    <div class="footer"></div>
+    <script src="js/vendor/jquery/jquery.min.js"></script>
+    <script src="jquery-form-optimizer.min.js"></script>
+    <script src="js/execute.js"></script>
+    <script src="js/demo.js"></script>
+  </body>
+</html>

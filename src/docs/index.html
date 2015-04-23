@@ -1,0 +1,4013 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>jQuery Form Optimizer Document</title>
+    <link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="css/pure-min.css">
+    <link rel="stylesheet" href="css/sunburst.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="github-fork-ribbon-wrapper right">
+        <div class="github-fork-ribbon">
+            <a href="https://github.com/thujikun/jquery-form-optimizer" target="_blank">Fork me on Github</a>
+        </div>
+    </div>
+    <div class="pure-g-r" id="layout">
+        <nav class="pure-u" id="menu">
+            <div class="pure-menu pure-menu-open">
+                <a href="#top" class="pure-menu-heading">jQuery Form Optimizer</a>
+                <ul>
+                    <li><a href="#validator-unit">Validator Unit</a></li>
+                    <li><a href="#validator-relation">Validator Relation</a></li>
+                    <li><a href="#input-helper">Input Helper</a></li>
+                </ul>
+            </div>
+            <!-- /.pure-menu pure-menu-open -->
+        </nav>
+        <!-- /#menu -->
+
+        <main class="pure-u" id="main">
+            <header class="header pure-u-1">
+                <h1 class="pure-u-1">jQuery Form Optimizer</h1>
+            </header>
+            <!-- /.header -->
+
+            <article id="top" class="content content-item-selected">
+                 <h2 class="catch">This plugin enables to add validator and input helper your form!</h2>
+                 <section class="demo">
+                    <form id="sample-form1">
+                        <div class="input-table">
+                            <dl class="input-row">
+                                <dt>Required field</dt>
+                                <dd>
+                                    <input type="text" name="sample" data-validation='{"unit":{"required":true}}'>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="input-table">
+                            <dl class="input-row">
+                                <dt>Credit Card</dt>
+                                <dd>
+                                    <input type="text" name="sample1-credit1" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autonext":4}'>
+                                    &nbsp;
+                                    <input type="text" name="sample1-credit2" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autonext":4,"autoprev":true}'>
+                                    &nbsp;
+                                    <input type="text" name="sample1-credit3" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autonext":4,"autoprev":true}'>
+                                    &nbsp;
+                                    <input type="text" name="sample1-credit4" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autoprev":true}'>
+                                </dd>
+                            </dl>
+                        </div>
+                    </form>
+                 </section>
+                 <h3>HTML</h3>
+                 <pre class="prettyprint lang-html">
+&lt;form id="sample-form1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="sample" data-validation='{"unit":{"required":true}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Credit Card&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="sample1-credit1" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autonext":4}'&gt;
+                &nbsp;
+                &lt;input type="text" name="sample1-credit2" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autonext":4,"autoprev":true}'&gt;
+                &nbsp;
+                &lt;input type="text" name="sample1-credit3" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autonext":4,"autoprev":true}'&gt;
+                &nbsp;
+                &lt;input type="text" name="sample1-credit4" class="short" maxlength="4" data-validation='{"relation":[{"type":"credit","key":"sample1-credit"}]}' data-input-helper='{"restriction":"number","autoprev":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                 <h3>Javascript</h3>
+                 <pre class="prettyprint lang-js">
+var $form = $('#sample-form1');
+
+// initialize validator
+$form.validator();
+// initialize input helper
+$form.find('[data-input-helper]').inputHelper();</pre>
+
+                <h3>Links</h3>
+                <ul class="pure-list">
+                    <li><a href="https://github.com/thujikun/jquery-form-optimizer">Repository</a></li>
+                    <li><a href="http://form-optimizer.thujikun.com/demo/">Demo</a></li>
+                    <li><a href="http://form-optimizer.thujikun.com/spec/">Specification</a></li>
+                </ul>
+
+            </article>
+            <!-- /#top -->
+
+            <article id="validator-unit" class="content">
+                <h2 class="tab-title">validator unit</h2>
+                <h3 class="tab-subtitle">Unit Checks</h3>
+                <table class="pure-table pure-table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Check Type</th>
+                            <th>Key type</th>
+                            <th>Key</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-required">required</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                check inputted or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-required-check">required-check</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                the number of check required
+                            </td>
+                            <td>
+                                check checkbox is checked more than specified value
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-length">length</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                length
+                            </td>
+                            <td>
+                                check inputted value equals length or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-maxlength">maxlength</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                max length
+                            </td>
+                            <td>
+                                check inputted value is lower than maxlength or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-minlength">minlength</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                min length
+                            </td>
+                            <td>
+                                check inputted value is higher than minlength or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-maxnum">maxnum</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                max number
+                            </td>
+                            <td>
+                                check inputted value is lower than max number or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-minnum">minnum</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                min number
+                            </td>
+                            <td>
+                                check inputted value is higher than min number or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td rowspan="11">format</td>
+                            <td rowspan="11">
+                                String
+                            </td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-number">number</a>
+                            </td>
+                            <td>
+                                check inputted value is only number character or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-half-char">half-char</a>
+                            </td>
+                            <td>
+                                check inputted value is only half character (number and alphabet) or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-half">half</a>
+                            </td>
+                            <td>
+                                check inputted value is only half character (including symbol) or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-half-kana">half-kana</a>
+                            </td>
+                            <td>
+                                check inputted value is only half kana character or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-url">url</a>
+                            </td>
+                            <td>
+                                check inputted value is only url format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-tel">tel</a>
+                            </td>
+                            <td>
+                                check inputted value is only tel format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-tel-i18n">tel-i18n</a>
+                            </td>
+                            <td>
+                                check inputted value is only international tel format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-email">email</a>
+                            </td>
+                            <td>
+                                check inputted value is only email format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-full-kana">full-kana</a>
+                            </td>
+                            <td>
+                                check inputted value is only Full-width kana character or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-date">date</a>
+                            </td>
+                            <td>
+                                check inputted value is only date format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-dateYM">dateYM</a>
+                            </td>
+                            <td>
+                                check inputted value is only date(Year and Month) format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-credit">credit</a>
+                            </td>
+                            <td>
+                                check inputted value is only credit format or not
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-regexp">regexp</a>
+                            </td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                                regular expression
+                            </td>
+                            <td>
+                                check inputted value fit to specified regular expression or not
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="demo-wrap" id="sample-required">
+                    <h2>Required</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-required1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>required field</dt>
+                                    <dd>
+                                        <input type="text" name="required" title="required text" data-validation='{"unit":{"required":true}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-required1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="required" title="required text" data-validation='{"unit":{"required":true}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-required1').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-required2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>required field</dt>
+                                    <dd>
+                                        <input type="text" name="required" title="required text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-required2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="required" title="required text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-required2').validator({}, [
+    {
+        name: 'required',
+        unit: {
+            required: true
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-required-check">
+                    <h2>Required checkbox</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-required-check1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>required checkbox field</dt>
+                                    <dd>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 1<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 2<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 3<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 4<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 5<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 6<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'>item 7
+                                    </dd>
+                                </dl>
+                            </div>
+                            <button>Submit</button>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-required-check1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'&gt;&lt;br&gt;
+            &lt;/dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'&gt;&lt;br&gt;
+            &lt;/dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'&gt;&lt;br&gt;
+            &lt;/dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'&gt;&lt;br&gt;
+            &lt;/dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'&gt;&lt;br&gt;
+            &lt;/dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'&gt;&lt;br&gt;
+            &lt;/dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox" data-validation='{"unit":{"required-check":3}}'
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+var $form = $('#sample-form-required-check1');
+$form.validator().on('submit', function(e) {
+    e.preventDefault();
+    $form.validator('formValidate').done(function(result) {
+        if (result.error) {
+            alert(result.data[0].errorMessage);
+        }
+    });
+});</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form action="/" id="sample-form-required-check2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>required checkbox field</dt>
+                                    <dd>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 1<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 2<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 3<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 4<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 5<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 6<br>
+                                        <input type="checkbox" name="required-check" title="required checkbox">item 7
+                                    </dd>
+                                </dl>
+                            </div>
+                            <button>Submit</button>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-required-check2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;&lt;br&gt;
+                &lt;input type="checkbox" name="required-check" title="required checkbox"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+var $form = $('#sample-form-required-check2');
+$form.validator({}, [
+    {
+        name: 'required-check',
+        unit: {
+            'required-check': true
+        }
+    }
+]).on('submit', function(e) {
+    e.preventDefault();
+    $form.validator('formValidate').done(function(result) {
+        alert(result.data[0].errorMessage);
+    });
+});</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-length">
+                    <h2>Length</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-length1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>length field</dt>
+                                    <dd>
+                                        <input type="text" name="length" title="length text" data-validation='{"unit":{"length":5}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-length1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="length" title="length text" data-validation='{"unit":{"length":5}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-length').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-length2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>length field</dt>
+                                    <dd>
+                                        <input type="text" name="length" title="length text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-length2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;length Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="length" title="length text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-length2').validator({}, [
+    {
+        name: 'length',
+        unit: {
+            length: 5
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-maxlength">
+                    <h2>Max length</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-maxlength1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>maxlength field</dt>
+                                    <dd>
+                                        <input type="text" name="maxlength" title="maxlength text" data-validation='{"unit":{"maxlength":5}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-maxlength1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="maxlength" title="maxlength text" data-validation='{"unit":{"maxlength":5}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-maxlength').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-maxlength2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>maxlength field</dt>
+                                    <dd>
+                                        <input type="text" name="maxlength" title="maxlength text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-maxlength2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;maxlength Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="maxlength" title="maxlength text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-maxlength2').validator({}, [
+    {
+        name: 'maxlength',
+        unit: {
+            maxlength: 5
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-minlength">
+                    <h2>Min length</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-minlength1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>minlength field</dt>
+                                    <dd>
+                                        <input type="text" name="minlength" title="minlength text" data-validation='{"unit":{"minlength":2}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-minlength"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="minlength" title="minlength text" data-validation='{"unit":{"minlength":2}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-minlength').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-minlength2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>minlength field</dt>
+                                    <dd>
+                                        <input type="text" name="minlength" title="minlength text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-minlength2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;minlength Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="minlength" title="minlength text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-minlength2').validator({}, [
+    {
+        name: 'minlength',
+        unit: {
+            minlength: 2
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-maxnum">
+                    <h2>Max number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-maxnum1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>maxnum field</dt>
+                                    <dd>
+                                        <input type="text" name="maxnum" title="maxnum text" data-validation='{"unit":{"maxnum":9999}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-maxnum"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="maxnum" title="maxnum text" data-validation='{"unit":{"maxnum":9999}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-maxnum').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-maxnum2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>maxnum field</dt>
+                                    <dd>
+                                        <input type="text" name="maxnum" title="maxnum text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-maxnum2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;maxnum Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="maxnum" title="maxnum text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-maxnum2').validator({}, [
+    {
+        name: 'maxnum',
+        unit: {
+            maxnum: 9999
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-minnum">
+                    <h2>Min number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-minnum1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>minnum field</dt>
+                                    <dd>
+                                        <input type="text" name="minnum" title="minnum text" data-validation='{"unit":{"minnum":100}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-minnum"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="minnum" title="minnum text" data-validation='{"unit":{"minnum":100}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-minnum').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-minnum2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>minnum field</dt>
+                                    <dd>
+                                        <input type="text" name="minnum" title="minnum text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-minnum2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;minnum Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="minnum" title="minnum text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-minnum2').validator({}, [
+    {
+        name: 'minnum',
+        unit: {
+            minnum: true
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-number">
+                    <h2>Number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-number1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>number field</dt>
+                                    <dd>
+                                        <input type="text" name="number" title="number text" data-validation='{"unit":{"format":"number"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-number"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="number" title="number text" data-validation='{"unit":{"format":"number"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-number').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-number2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>number field</dt>
+                                    <dd>
+                                        <input type="text" name="number" title="number text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-number2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;number Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="number" title="number text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-number2').validator({}, [
+    {
+        name: 'number',
+        unit: {
+            format: 'number'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-half-char">
+                    <h2>Half character</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half-char1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half-char field</dt>
+                                    <dd>
+                                        <input type="text" name="half-char" title="half-char text" data-validation='{"unit":{"format":"half-char"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half-char"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="half-char" title="half-char text" data-validation='{"unit":{"format":"half-char"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half-char').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half-char2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half-char field</dt>
+                                    <dd>
+                                        <input type="text" name="half-char" title="half-char text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half-char2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half-char Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="half-char" title="half-char text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half-char2').validator({}, [
+    {
+        name: 'half-char',
+        unit: {
+            format: 'half-char'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-half">
+                    <h2>Half</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half field</dt>
+                                    <dd>
+                                        <input type="text" name="half" title="half text" data-validation='{"unit":{"format":"half"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="half" title="half text" data-validation='{"unit":{"format":"half"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half field</dt>
+                                    <dd>
+                                        <input type="text" name="half" title="half text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="half" title="half text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half2').validator({}, [
+    {
+        name: 'half',
+        unit: {
+            format: 'half'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-half-kana">
+                    <h2>Half kana character</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half-kana1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half-kana field</dt>
+                                    <dd>
+                                        <input type="text" name="half-kana" title="half-kana text" data-validation='{"unit":{"format":"half-kana"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half-kana"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="half-kana" title="half-kana text" data-validation='{"unit":{"format":"half-kana"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half-kana').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half-kana2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half-kana field</dt>
+                                    <dd>
+                                        <input type="text" name="half-kana" title="half-kana text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half-kana2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half-kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="half-kana" title="half-kana text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half-kana2').validator({}, [
+    {
+        name: 'half-kana',
+        unit: {
+            format: 'half-kana'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-url">
+                    <h2>Url</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-url1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>url field</dt>
+                                    <dd>
+                                        <input type="text" name="url" title="url text" data-validation='{"unit":{"format":"url"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-url"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="url" title="url text" data-validation='{"unit":{"format":"url"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-url').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-url2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>url field</dt>
+                                    <dd>
+                                        <input type="text" name="url" title="url text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-url2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;url Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="url" title="url text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-url2').validator({}, [
+    {
+        name: 'url',
+        unit: {
+            format: 'url'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-tel">
+                    <h2>Telephone number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-tel1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>tel field</dt>
+                                    <dd>
+                                        <input type="text" name="tel" title="tel text" data-validation='{"unit":{"format":"tel"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-tel"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="tel" title="tel text" data-validation='{"unit":{"format":"tel"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-tel').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-tel2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>tel field</dt>
+                                    <dd>
+                                        <input type="text" name="tel" title="tel text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-tel2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;tel Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="tel" title="tel text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-tel2').validator({}, [
+    {
+        name: 'tel',
+        unit: {
+            format: 'tel'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+                <div class="demo-wrap" id="sample-tel-i18n">
+                    <h2>International telephone number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                    <section class="demo">
+                        <form id="sample-form-tel-i18n1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>tel field</dt>
+                                    <dd>
+                                        <input type="text" name="tel-i18n" title="tel text" data-validation='{"unit":{"format":"tel-i18n"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-tel-i18n"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="tel-i18n" title="tel text" data-validation='{"unit":{"format":"tel-i18n"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                            <h4>Javascript</h4>
+<pre class="prettyprint lang-js">
+$('#sample-form-tel-i18n').validator();</pre>
+                            </section>
+
+                            <h3>json parameter pattern</h3>
+                            <section class="demo">
+                                <form id="sample-form-tel-i18n2">
+                                    <div class="input-table">
+                                        <dl class="input-row">
+                                            <dt>tel field</dt>
+                                            <dd>
+                                                <input type="text" name="tel-i18n" title="tel text">
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </form>
+                            </section>
+                            <section class="code">
+                                <h4>HTML</h4>
+                                <pre class="prettyprint lang-html">
+&lt;form id="sample-form-tel-i18n2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;tel Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="tel-i18n" title="tel text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                                    <h4>Javascript</h4>
+<pre class="prettyprint lang-js">
+$('#sample-form-tel-i18n2').validator({}, [
+    {
+        name: 'tel-i18n',
+        unit: {
+            format: 'tel-i18n'
+        }
+    }
+]);</pre>
+                            </section>
+                        </div>
+
+
+
+
+                <div class="demo-wrap" id="sample-email">
+                    <h2>Email address</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-email1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>email field</dt>
+                                    <dd>
+                                        <input type="text" name="email" title="email text" data-validation='{"unit":{"format":"email"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-email"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email" title="email text" data-validation='{"unit":{"format":"email"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-email').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-email2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>email field</dt>
+                                    <dd>
+                                        <input type="text" name="email" title="email text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-email2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email" title="email text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-email2').validator({}, [
+    {
+        name: 'email',
+        unit: {
+            format: 'email'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-full-kana">
+                    <h2>All kana character</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-full-kana1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>full-kana field</dt>
+                                    <dd>
+                                        <input type="text" name="full-kana" title="full-kana text" data-validation='{"unit":{"format":"full-kana"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-full-kana"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="full-kana" title="full-kana text" data-validation='{"unit":{"format":"full-kana"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-full-kana').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-full-kana2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>full-kana field</dt>
+                                    <dd>
+                                        <input type="text" name="full-kana" title="full-kana text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-full-kana2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;full-kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="full-kana" title="full-kana text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-full-kana2').validator({}, [
+    {
+        name: 'full-kana',
+        unit: {
+            format: 'full-kana'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-date">
+                    <h2>Date in YMD format (yyyy/mm/dd)</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-date1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>date field</dt>
+                                    <dd>
+                                        <input type="text" name="date" title="date text" data-validation='{"unit":{"format":"date"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-date"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="date" title="date text" data-validation='{"unit":{"format":"date"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-date').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-date2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>date field</dt>
+                                    <dd>
+                                        <input type="text" name="date" title="date text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-date2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;date Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="date" title="date text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-date2').validator({}, [
+    {
+        name: 'date',
+        unit: {
+            format: 'date'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-dateYM">
+                    <h2>Date in YM format (yyyy/mm)</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-dateYM1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>dateYM field</dt>
+                                    <dd>
+                                        <input type="text" name="dateYM" title="dateYM text" data-validation='{"unit":{"format":"dateYM"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-dateYM"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="dateYM" title="dateYM text" data-validation='{"unit":{"format":"dateYM"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-dateYM').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-dateYM2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>dateYM field</dt>
+                                    <dd>
+                                        <input type="text" name="dateYM" title="dateYM text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-dateYM2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;dateYM Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="dateYM" title="dateYM text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-dateYM2').validator({}, [
+    {
+        name: 'dateYM',
+        unit: {
+            format: 'dateYM'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-credit">
+                    <h2>Credit Card Number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-credit1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>credit field</dt>
+                                    <dd>
+                                        <input type="text" name="credit" title="credit text" data-validation='{"unit":{"format":"credit"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-credit1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="credit" title="credit text" data-validation='{"unit":{"format":"credit"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-credit').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-credit2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>credit field</dt>
+                                    <dd>
+                                        <input type="text" name="credit" title="credit text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-credit2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;credit Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="credit" title="credit text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-credit2').validator({}, [
+    {
+        name: 'credit',
+        unit: {
+            format: 'credit'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+
+
+
+
+                <div class="demo-wrap" id="sample-regexp">
+                    <h2>Regular Expression</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-regexp1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>regexp field</dt>
+                                    <dd>
+                                        <input type="text" name="regexp" title="regexp text" data-validation='{"unit":{"regexp":"^a"}}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-regexp"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Required Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="regexp" title="regexp text" data-validation='{"unit":{"regexp":"^a"}}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-regexp').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-regexp2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>regexp field</dt>
+                                    <dd>
+                                        <input type="text" name="regexp" title="regexp text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-regexp2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;regexp Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="regexp" title="regexp text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-regexp2').validator({}, [
+    {
+        name: 'regexp',
+        unit: {
+            regexp: '^a'
+        }
+    }
+]);</pre>
+                    </section>
+                </div>
+
+            </article>
+
+            <article id="validator-relation" class="content">
+                <h2 class="tab-title">validator relation</h2>
+                <h3 class="tab-subtitle">Relation Checks</h3>
+                <table class="pure-table pure-table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Check Type</th>
+                            <th>role</th>
+                            <th>Role description</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td rowspan="2"><a class="smooth-scroll" href="#sample-relation-same">same</a></td>
+                            <td>
+                                body
+                            </td>
+                            <td>
+                                target field
+                            </td>
+                            <td rowspan="2">Check the value is same between body and confirmation field.</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                confirmation
+                            </td>
+                            <td>
+                                email field for confirmation
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td rowspan="2"><a class="smooth-scroll" href="#sample-relation-date-around">date-around</a></td>
+                            <td>
+                                before
+                            </td>
+                            <td>
+                                previous date field
+                            </td>
+                            <td rowspan="2">Check privious date is smaller than latter date.</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                after
+                            </td>
+                            <td>
+                                latter date field
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-relation-credit">credit</a></td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>Check rune algorithm with multiple credit card number field.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="demo-wrap" id="sample-relation-same">
+                    <h2>same relation</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-relation-same1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>email body field</dt>
+                                    <dd>
+                                        <input type="text" name="email-body" title="email body text" data-validation='{"relation":[{"type":"same","key":"email-key","role":"body"}]}'>
+                                    </dd>
+                                </dl>
+                                <dl class="input-row">
+                                    <dt>email confirmation field</dt>
+                                    <dd>
+                                        <input type="text" name="email-confirmation" title="email confirmation text" data-validation='{"relation":[{"type":"same","key":"email-key","role":"confirmation"}]}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-relation-same1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email body field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-body" title="email body text" data-validation='{"relation":[{"type":"same","key":"email-key","role":"body"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email confirmation field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-confirmation" title="email confirmation text" data-validation='{"relation":[{"type":"same","key":"email-key","role":"confirmation"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-relation-same1').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-relation-same2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>email body field</dt>
+                                    <dd>
+                                        <input type="text" name="email-body" title="email body text">
+                                    </dd>
+                                </dl>
+                                <dl class="input-row">
+                                    <dt>email confirmation field</dt>
+                                    <dd>
+                                        <input type="text" name="email-confirmation" title="email confirmation text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-relation-same2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email body field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-body" title="email body text" data-validation='{"relation":[{"type":"email","key":"email-key","role":"body"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email confirmation field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-confirmation" title="email confirmation text" data-validation='{"relation":[{"type":"email","key":"email-key","role":"confirmation"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-relation-same2').validator({}, [
+    {
+        name: 'email-body',
+        relation: [
+            {
+                type: 'same',
+                key: 'email-key',
+                role: 'body'
+            }
+        ]
+    },
+    {
+        name: 'email-confirmation',
+        relation: [
+            {
+                type: 'same',
+                key: 'email-key',
+                role: 'confirmation'
+            }
+        ]
+    }
+]);</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-relation-date-around">
+                    <h2>date around relation</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-relation-date-around1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>date around before field</dt>
+                                    <dd>
+                                        <input type="text" name="date-around-before" title="date around before text" data-validation='{"relation":[{"type":"date-around","key":"date-around-key","role":"before"}]}'>
+                                    </dd>
+                                </dl>
+                                <dl class="input-row">
+                                    <dt>date around after field</dt>
+                                    <dd>
+                                        <input type="text" name="date-around-after" title="date around after text" data-validation='{"relation":[{"type":"date-around","key":"date-around-key","role":"after"}]}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-relation-date-around1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;date around before field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="date-around-before" title="date around before text" data-validation='{"relation":[{"type":"date-around","key":"date-around-key","role":"before"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;date around after field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="date-around-after" title="date around after text" data-validation='{"relation":[{"type":"date-around","key":"date-around-key","role":"after"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-relation-date-around1').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-relation-date-around2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>date around before field</dt>
+                                    <dd>
+                                        <input type="text" name="date-around-before" title="date around before text">
+                                    </dd>
+                                </dl>
+                                <dl class="input-row">
+                                    <dt>date around after field</dt>
+                                    <dd>
+                                        <input type="text" name="date-around-after" title="date around after text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-relation-date-around2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;date around before field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="date-around-before" title="date around before text" data-validation='{"relation":[{"type":"date-around","key":"date-around-key","role":"before"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;date around after field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="date-around-after" title="date around after text" data-validation='{"relation":[{"type":"date-around","key":"date-around-key","role":"after"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-relation-date-around2').validator({}, [
+    {
+        name: 'date-around-before',
+        relation: [
+            {
+                type: 'date-around',
+                key: 'date-around-key',
+                role: 'before'
+            }
+        ]
+    },
+    {
+        name: 'date-around-after',
+        relation: [
+            {
+                type: 'date-around',
+                key: 'date-around-key',
+                role: 'after'
+            }
+        ]
+    }
+]);</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-relation-credit">
+                    <h2>multiple credit card number field</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-relation-credit1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>credit field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="credit-relation1" title="credit relation text1" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'>
+                                        <input type="text" class="short" name="credit-relation2" title="credit relation text2" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'>
+                                        <input type="text" class="short" name="credit-relation3" title="credit relation text3" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'>
+                                        <input type="text" class="short" name="credit-relation4" title="credit relation text4" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-relation-credit1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;credit field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="credit-relation1" title="credit relation text1" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'&gt;
+                &lt;input type="text" class="short" name="credit-relation2" title="credit relation text2" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'&gt;
+                &lt;input type="text" class="short" name="credit-relation3" title="credit relation text3" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'&gt;
+                &lt;input type="text" class="short" name="credit-relation4" title="credit relation text4" data-validation='{"relation":[{"type":"credit","key":"credit-key"}]}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-relation-credit1').validator();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-relation-credit2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>credit field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="credit-relation1" title="credit relation text1">
+                                        <input type="text" class="short" name="credit-relation2" title="credit relation text2">
+                                        <input type="text" class="short" name="credit-relation3" title="credit relation text3">
+                                        <input type="text" class="short" name="credit-relation4" title="credit relation text4">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-relation-credit1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;credit field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="credit-relation1" title="credit relation text1"&gt;
+                &lt;input type="text" class="short" name="credit-relation2" title="credit relation text2"&gt;
+                &lt;input type="text" class="short" name="credit-relation3" title="credit relation text3"&gt;
+                &lt;input type="text" class="short" name="credit-relation4" title="credit relation text4"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-relation-credit2').validator({}, [
+    {
+        name: 'credit-relation1',
+        relation: [
+            {
+                type: 'credit',
+                key: 'credit-key'
+            }
+        ]
+    },
+    {
+        name: 'credit-relation2',
+        relation: [
+            {
+                type: 'credit',
+                key: 'credit-key'
+            }
+        ]
+    },
+    {
+        name: 'credit-relation3',
+        relation: [
+            {
+                type: 'credit',
+                key: 'credit-key'
+            }
+        ]
+    },
+    {
+        name: 'credit-relation4',
+        relation: [
+            {
+                type: 'credit',
+                key: 'credit-key'
+            }
+        ]
+    }
+]);</pre>
+                    </section>
+                </div>
+            </article>
+
+            <article id="input-helper" class="content">
+                <h2>input helper</h2>
+                <table class="pure-table pure-table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>helper Type</th>
+                            <th>Key type</th>
+                            <th>Key</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-cancelspace">cancelspace</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Ignore input space
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-autonext">autonext</a></td>
+                            <td>
+                                Number
+                            </td>
+                            <td>
+                                condition digit
+                            </td>
+                            <td>
+                                Auto focus to next item when user input specified digit
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-autoprev">autoprev</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Auto focus to prev item when user pressed backspace key and nothing is inputted
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-full2half">full2half</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Convert Full-width alphabet and number to Half-width alphabet and number
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-fullKana2halfKana">fullKana2halfKana</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Convert Full-width kana to Half-width kana
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-half2full">half2full</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Convert Half-width alphabet and number to Full-width alphabet and number
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-halfKana2fullKana">halfKana2fullKana</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Convert Half-width kana to Full-width kana
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td rowspan="7">restriction</td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-number">number</a>
+                            </td>
+                            <td>
+                                restrict inputted value only width number
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-half-char">half-char</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only Half-width alphabet and number
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-half">half</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only Half-width alphabet, number and symbols
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-tel">tel</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only number and hyphen
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-full-kana">full-kana</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only Full-width kana
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-zip">zip</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only zip code
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-date">date</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only number and slash
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                            <a class="smooth-scroll" href="#sample-restrict-credit">credit</a>
+                            </td>
+                            <td>
+                                restrict inputted value with only number and hyphen
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td rowspan="2">insert</td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-insert-zip">zip</a>
+                            </td>
+                            <td>
+                                Insert hyphen automatically accourding to zip number format
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                                <a class="smooth-scroll" href="#sample-insert-credit">credit</a>
+                            </td>
+                            <td>
+                                Insert hyphen automatically accourding to credit number format.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-creditcard">credit</a></td>
+                            <td>
+                                Boolean
+                            </td>
+                            <td>
+                                true or false
+                            </td>
+                            <td>
+                                Ditect credit card company form credit card number and trigger 'ditectcredit' event.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a class="smooth-scroll" href="#sample-remove">remove</a></td>
+                            <td>
+                                String
+                            </td>
+                            <td>
+                                Selector of remove target element
+                            </td>
+                            <td>
+                                Remove value when inputting something to the element.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="demo-wrap" id="sample-cancelspace">
+                    <h2>Cancel space</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-cancelspace1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Cancel space Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="cancelspace" title="cancelspace text" data-input-helper='{"cancelspace":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-cancelspace1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Cancel space Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="cancelspace" title="cancelspace text" data-input-helper='{"cancelspace":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-cancelspace1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-cancelspace2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Cancel space Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="cancelspace" title="cancelspace text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-cancelspace2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Cancel space Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="cancelspace" title="cancelspace text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-cancelspace2').find('input[name=cancelspace]').inputHelper({}, {
+    cancelspace: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-autonext">
+                    <h2>Auto next</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-autonext1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Auto next Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="autonext1" title="autonext text" data-input-helper='{"autonext":4}'>
+                                        <input type="text" class="short" name="autonext2" title="autonext text" data-input-helper='{"autonext":4}'>
+                                        <input type="text" class="short" name="autonext3" title="autonext text" data-input-helper='{"autonext":4}'>
+                                        <input type="text" class="short" name="autonext4" title="autonext text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-autonext1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Auto next Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="autonext1" title="autonext text" data-input-helper='{"autonext":4}'&gt;
+                &lt;input type="text" class="short" name="autonext2" title="autonext text" data-input-helper='{"autonext":4}'&gt;
+                &lt;input type="text" class="short" name="autonext3" title="autonext text" data-input-helper='{"autonext":4}'&gt;
+                &lt;input type="text" class="short" name="autonext4" title="autonext text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-autonext1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-autonext2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Auto next Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="autonext1" title="autonext text">
+                                        <input type="text" class="short" name="autonext2" title="autonext text">
+                                        <input type="text" class="short" name="autonext3" title="autonext text">
+                                        <input type="text" class="short" name="autonext4" title="autonext text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-autonext1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Auto next Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="autonext1" title="autonext text"&gt;
+                &lt;input type="text" class="short" name="autonext2" title="autonext text"&gt;
+                &lt;input type="text" class="short" name="autonext3" title="autonext text"&gt;
+                &lt;input type="text" class="short" name="autonext4" title="autonext text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$form = $('#sample-form-autonext2');
+$form.find('input[name=autonext1]').inputHelper({}, {
+    autonext: 2
+});
+$form.find('input[name=autonext2]').inputHelper({}, {
+    autonext: 3
+});
+$form.find('input[name=autonext3]').inputHelper({}, {
+    autonext: 4
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-autoprev">
+                    <h2>Auto prev</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-autoprev1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Auto prev Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="autoprev1" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev2" title="autoprev text" data-input-helper='{"autoprev":true}'>
+                                        <input type="text" class="short" name="autoprev3" title="autoprev text" data-input-helper='{"autoprev":true}'>
+                                        <input type="text" class="short" name="autoprev4" title="autoprev text" data-input-helper='{"autoprev":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-autoprev1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Auto prev Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="autoprev1" title="autoprev text" data-input-helper='{"autoprev":true}'&gt;
+                &lt;input type="text" class="short" name="autoprev2" title="autoprev text" data-input-helper='{"autoprev":true}'&gt;
+                &lt;input type="text" class="short" name="autoprev3" title="autoprev text" data-input-helper='{"autoprev":true}'&gt;
+                &lt;input type="text" class="short" name="autoprev4" title="autoprev text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-autoprev1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-autoprev2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Auto prev Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="autoprev1" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev2" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev3" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev4" title="autoprev text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-autoprev1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Auto prev Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="autoprev1" title="autoprev text"&gt;
+                &lt;input type="text" class="short" name="autoprev2" title="autoprev text"&gt;
+                &lt;input type="text" class="short" name="autoprev3" title="autoprev text"&gt;
+                &lt;input type="text" class="short" name="autoprev4" title="autoprev text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$form = $('#sample-form-autoprev2');
+$form.find('input[name=autoprev2]').inputHelper({}, {
+    autoprev: true
+});
+$form.find('input[name=autoprev3]').inputHelper({}, {
+    autoprev: true
+});
+$form.find('input[name=autoprev4]').inputHelper({}, {
+    autoprev: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-autoprev">
+                    <h2>all2half</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-autoprev1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Auto prev Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="autoprev1" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev2" title="autoprev text" data-input-helper='{"autoprev":true}'>
+                                        <input type="text" class="short" name="autoprev3" title="autoprev text" data-input-helper='{"autoprev":true}'>
+                                        <input type="text" class="short" name="autoprev4" title="autoprev text" data-input-helper='{"autoprev":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-autoprev1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Auto prev Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="autoprev1" title="autoprev text" data-input-helper='{"autoprev":true}'&gt;
+                &lt;input type="text" class="short" name="autoprev2" title="autoprev text" data-input-helper='{"autoprev":true}'&gt;
+                &lt;input type="text" class="short" name="autoprev3" title="autoprev text" data-input-helper='{"autoprev":true}'&gt;
+                &lt;input type="text" class="short" name="autoprev4" title="autoprev text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-autoprev1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-autoprev2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Auto prev Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="autoprev1" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev2" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev3" title="autoprev text">
+                                        <input type="text" class="short" name="autoprev4" title="autoprev text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-autoprev1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Auto prev Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="autoprev1" title="autoprev text"&gt;
+                &lt;input type="text" class="short" name="autoprev2" title="autoprev text"&gt;
+                &lt;input type="text" class="short" name="autoprev3" title="autoprev text"&gt;
+                &lt;input type="text" class="short" name="autoprev4" title="autoprev text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$form = $('#sample-form-autoprev2');
+$form.find('input[name=autoprev2]').inputHelper({}, {
+    autoprev: true
+});
+$form.find('input[name=autoprev3]').inputHelper({}, {
+    autoprev: true
+});
+$form.find('input[name=autoprev4]').inputHelper({}, {
+    autoprev: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-full2half">
+                    <h2>Full-width character to Half-width Character</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-full2half1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>full to half Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="full2half" title="full2half text" data-input-helper='{"full2half":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-full2half1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;full to half Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="full2half" title="full2half text" data-input-helper='{"full2half":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-full2half1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-full2half2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>full to half Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="full2half" title="full2half text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-full2half2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;full to half Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="full2half" title="full2half text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-full2half2').find('input[name=full2half]').inputHelper({}, {
+    full2half: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-fullKana2halfKana">
+                    <h2>Full-width kana to Half-width kana</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-fullKana2halfKana1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>full kana to half kana Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="fullKana2halfKana" title="fullKana2halfKana text" data-input-helper='{"fullKana2halfKana":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-fullKana2halfKana1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;full kana to half kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="fullKana2halfKana" title="fullKana2halfKana text" data-input-helper='{"fullKana2halfKana":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-fullKana2halfKana1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-fullKana2halfKana2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>full kana to half kana Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="fullKana2halfKana" title="fullKana2halfKana text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-fullKana2halfKana2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;full kana to half kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="fullKana2halfKana" title="fullKana2halfKana text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-fullKana2halfKana2').find('input[name=fullKana2halfKana]').inputHelper({}, {
+    fullKana2halfKana: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-half2full">
+                    <h2>Half-width to Full-width character Character</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half2full1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half to full Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="half2full" title="half2full text" data-input-helper='{"half2full":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half2full1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half to full Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="half2full" title="half2full text" data-input-helper='{"half2full":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half2full1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-half2full2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half to full Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="half2full" title="half2full text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-half2full2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half to full Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="half2full" title="half2full text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-half2full2').find('input[name=half2full]').inputHelper({}, {
+    half2full: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-halfKana2fullKana">
+                    <h2>Half-width kana to Full-width kana</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-halfKana2fullKana1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half kana to full kana Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="halfKana2fullKana" title="halfKana2fullKana text" data-input-helper='{"halfKana2fullKana":true}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-halfKana2fullKana1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half kana to full kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="halfKana2fullKana" title="halfKana2fullKana text" data-input-helper='{"halfKana2fullKana":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-halfKana2fullKana1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-halfKana2fullKana2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>half kana to full kana Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="halfKana2fullKana" title="halfKana2fullKana text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-halfKana2fullKana2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;half kana to full kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="halfKana2fullKana" title="halfKana2fullKana text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-halfKana2fullKana2').find('input[name=halfKana2fullKana]').inputHelper({}, {
+    halfKana2fullKana: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-number">
+                    <h2>Restrict number</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-number1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict number Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-number" title="restrict number text" data-input-helper='{"restriction":"number"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-number1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict number Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-number" title="restrict number text" data-input-helper='{"restriction":"number"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-number1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-number2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict number Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-number" title="restrict number text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-number2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict number Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-number" title="restrict number text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-number2').find('input[name=restrict-number]').inputHelper({}, {
+    restriction: 'number'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-half-char">
+                    <h2>Restrict half char</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-half-char1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict half char Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-half-char" title="restrict half char text" data-input-helper='{"restriction":"half-char"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-half-char1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict half-char Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-half-char" title="restrict half char text" data-input-helper='{"restriction":"half-char"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-half-char1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-half-char2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict half char Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-half-char" title="restrict half char text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-half-char2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict half-char Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-half-char" title="restrict half char text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-half-char2').find('input[name=restrict-half-char]').inputHelper({}, {
+    restriction: 'half-char'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-half">
+                    <h2>Restrict half</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-half1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict half Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-half" title="restrict half text" data-input-helper='{"restriction":"half"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-half1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict half Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-half" title="restrict half text" data-input-helper='{"restriction":"half"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-half1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-half2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict half Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-half" title="restrict half text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-half2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict half Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-half" title="restrict half text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-half2').find('input[name=restrict-half]').inputHelper({}, {
+    restriction: 'half'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-tel">
+                    <h2>Restrict tel</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-tel1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict tel Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-tel" title="restrict tel text" data-input-helper='{"restriction":"tel"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-tel1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict tel Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-tel" title="restrict-tel text" data-input-helper='{"restriction":"tel"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-tel1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-tel2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict tel Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-tel" title="restrict tel text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-tel2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict tel Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-tel" title="restrict tel text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-tel2').find('input[name=restrict-tel]').inputHelper({}, {
+    restriction: 'tel'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-full-kana">
+                    <h2>Restrict full kana</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-full-kana1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict full kana Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-full-kana" title="restrict full kana text" data-input-helper='{"restriction":"full-kana"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-full-kana1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict full kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-full-kana" title="restrict full kana text" data-input-helper='{"restriction":"full-kana"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-full-kana1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-full-kana2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict full kana Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-full-kana" title="restrict full kana text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-full-kana2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict full kana Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-full-kana" title="restrict full kana text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-full-kana2').find('input[name=restrict-full-kana]').inputHelper({}, {
+    restriction: 'full-kana'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-zip">
+                    <h2>Restrict zip</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-zip1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict zip Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-zip" title="restrict zip text" data-input-helper='{"restriction":"zip"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-zip1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict zip Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-zip" title="restrict zip text" data-input-helper='{"restriction":"zip"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-zip1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-zip2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict zip Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-zip" title="restrict zip text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-zip2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict zip Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-zip" title="restrict zip text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-zip2').find('input[name=restrict-zip]').inputHelper({}, {
+    restriction: 'zip'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-date">
+                    <h2>Restrict date</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-date1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict date Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-date" title="restrict date text" data-input-helper='{"restriction":"date"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-date1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict date Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-date" title="restrict-date text" data-input-helper='{"restriction":"date"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-date1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-date2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict date Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-date" title="restrict date text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-date2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict date Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-date" title="restrict date text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-date2').find('input[name=restrict-date]').inputHelper({}, {
+    restriction: 'date'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-restrict-credit">
+                    <h2>Restrict credit</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-credit1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict credit Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-credit" title="restrict credit text" data-input-helper='{"restriction":"credit"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-credit1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict credit Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-credit" title="restrict credit text" data-input-helper='{"restriction":"credit"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-credit1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-restrict-credit2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>restrict credit Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" name="restrict-credit" title="restrict credit text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-restrict-credit2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Restrict credit Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" name="restrict-credit" title="restrict credit text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-restrict-credit2').find('input[name=restrict-credit]').inputHelper({}, {
+    restriction: 'credit'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-insert-zip">
+                    <h2>Insert zip</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-insert-zip">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>insert zip Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" maxlength="8" name="insert-zip" title="insert zip text" data-input-helper='{"insert":"zip"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-insert-zip1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;insert zip Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" maxlength="8" name="insert-zip" title="insert zip text" data-input-helper='{"insert":"zip"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-insert-zip1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-insert-zip2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>insert zip Field</dt>
+                                    <dd>
+                                        <input type="text" class="short" maxlength="8" name="insert-zip" title="insert zip text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-insert-zip2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;insert zip Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="short" maxlength="8" name="insert-zip" title="insert zip text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-insert-zip2').find('input[name=insert-zip]').inputHelper({}, {
+    insert: 'zip'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-insert-credit">
+                    <h2>Insert credit</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-insert-credit1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>insert credit Field</dt>
+                                    <dd>
+                                        <input type="text" class="long" maxlength="19" name="insert-credit" title="insert credit text" data-input-helper='{"insert":"credit"}'>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-insert-credit1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;insert credit Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="long" maxlength="19" name="insert-credit" title="insert credit text" data-input-helper='{"insert":"credit"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-insert-credit1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-insert-credit2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>insert credit Field</dt>
+                                    <dd>
+                                        <input type="text" class="long" maxlength="19" name="insert-credit" title="insert credit text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-insert-credit2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;insert credit Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="long" maxlength="19" name="insert-credit" title="insert credit text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-insert-credit2').find('input[name=insert-credit]').inputHelper({}, {
+    insert: 'credit'
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-creditcard">
+                    <h2>credit card company</h2>
+                    <h3>HTML data attribute pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-creditcard1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Credit card Field</dt>
+                                    <dd>
+                                        <input type="text" class="long" name="credit" title="credit text" data-input-helper='{"credit":true}'>
+                                        <div class="card-image">
+                                            <span class="credit-icon visa"></span>
+                                            <span class="credit-icon master"></span>
+                                            <span class="credit-icon jcb"></span>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-creditcard1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Credit card Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="long" name="credit" title="credit text" data-input-helper='{"credit":true}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-creditcard1').find('input, textarea').inputHelper();</pre>
+                    </section>
+
+                    <h3>json parameter pattern</h3>
+                     <section class="demo">
+                        <form id="sample-form-creditcard2">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>Credit card Field</dt>
+                                    <dd>
+                                        <input type="text" class="long" name="credit" title="credit text">
+                                        <div class="card-image">
+                                            <span class="credit-icon visa"></span>
+                                            <span class="credit-icon master"></span>
+                                            <span class="credit-icon jcb"></span>
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                     </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-creditcard2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;Credit card Field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" class="long" name="credit" title="credit text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                        <h4>Javascript</h4>
+                        <pre class="prettyprint lang-js">
+$('#sample-form-creditcard2').find('input[name=credit]').inputHelper({}, {
+    credit: true
+});</pre>
+                    </section>
+                </div>
+
+                <div class="demo-wrap" id="sample-remove">
+                    <h2>Remove</h2>
+                    <h3>HTML data attribute pattern</h3>
+                    <section class="demo">
+                        <form id="sample-form-helper-remove1">
+                            <div class="input-table">
+                                <dl class="input-row">
+                                    <dt>email body field</dt>
+                                    <dd>
+                                        <input type="text" name="email-body" title="email body text" data-input-helper='{"remove":".remove-target"}'>
+                                    </dd>
+                                </dl>
+                                <dl class="input-row">
+                                    <dt>email confirmation field</dt>
+                                    <dd>
+                                        <input type="text" name="email-confirmation" class="remove-target" title="email confirmation text">
+                                    </dd>
+                                </dl>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="code">
+                        <h4>HTML</h4>
+                        <pre class="prettyprint lang-html">
+&lt;form id="sample-form-helper-remove1"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email body field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-body" title="email body text" data-input-helper='{"remove":".remove-target"}'&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email confirmation field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-confirmation" title="email confirmation text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                            <h4>Javascript</h4>
+                            <pre class="prettyprint lang-js">
+$('#sample-form-remove1').find('input, textarea').inputHelper();</pre>
+                            </section>
+
+                            <h3>json parameter pattern</h3>
+                            <section class="demo">
+                                <form id="sample-form-helper-remove2">
+                                    <div class="input-table">
+                                        <dl class="input-row">
+                                            <dt>email body field</dt>
+                                            <dd>
+                                                <input type="text" name="email-body" title="email body text">
+                                            </dd>
+                                        </dl>
+                                        <dl class="input-row">
+                                            <dt>email confirmation field</dt>
+                                            <dd>
+                                                <input type="text" name="email-confirmation" class="remove-target" title="email confirmation text">
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </form>
+                            </section>
+                            <section class="code">
+                                <h4>HTML</h4>
+                                <pre class="prettyprint lang-html">
+&lt;form id="sample-form-helper-remove2"&gt;
+    &lt;div class="input-table"&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email body field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-body" title="email body text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+        &lt;dl class="input-row"&gt;
+            &lt;dt&gt;email confirmation field&lt;/dt&gt;
+            &lt;dd&gt;
+                &lt;input type="text" name="email-confirmation" class="remove-target" title="email confirmation text"&gt;
+            &lt;/dd&gt;
+        &lt;/dl&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</pre>
+                                    <h4>Javascript</h4>
+                                    <pre class="prettyprint lang-js">
+$('#sample-form-creditcard2').find('input[name=email-body]').inputHelper({}, {
+    remove: '.remove-target'
+});</pre>
+                                </section>
+                            </div>
+
+            </article>
+
+        </main>
+        <!-- /#main -->
+    </div>
+    <!-- /#layout -->
+
+    <script src="js/run_prettify.js"></script>
+    <script src="js/vendor/jquery/jquery.min.js"></script>
+    <script src="js/jquery-form-optimizer.min.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

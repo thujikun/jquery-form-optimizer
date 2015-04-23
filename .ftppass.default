@@ -1,0 +1,6 @@
+{
+  "sftpendpoint": {
+    "username": "your teamsite username",
+    "password": "your teamsite password"
+  }
+}
